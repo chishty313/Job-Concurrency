@@ -1,0 +1,26 @@
+name: Practicing Job Concurrency with Next JS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  job-concurrency:
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: deploy
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Next JS App
+        run: npm run build
+
+      - name: Deploy App
+        run: echo "Deploying App"
